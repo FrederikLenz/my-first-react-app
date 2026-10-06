@@ -1,0 +1,25 @@
+import { useEffect, useState } from "react";
+import Header from "./components/header.jsx";
+import User from "./components/User.jsx";
+import UserList from "./components/UserList.jsx";
+
+export default function App() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    async function fetchUsers() {
+      const url = "https://raw.githubusercontent.com/cederdorff/race/refs/heads/master/data/users.json";
+      const response = await fetch(url);
+      const data = await response.json();
+      setUsers(data);
+    }
+    fetchUsers();
+  }, []);
+
+  return (
+    <main className="app">
+      <Header />
+      <UserList users={users} />
+    </main>
+  );
+}
